@@ -2,6 +2,7 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "esModuleInterop": true,
+    "target": "ES5",
   },
   "exclude": [
     "node_modules"
