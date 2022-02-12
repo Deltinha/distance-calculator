@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV=production node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\"",
     "build": "NODE_ENV=production rm -rf ./dist && npx tsc --project ./tsconfig.json --outDir dist"
