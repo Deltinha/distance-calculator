@@ -7,16 +7,20 @@ export async function getDistances(
   res: Response,
   _next: NextFunction
 ) {
-  const apiKey = req.query.key as string;
-  const addressArray = req.body;
+  try {
+    const apiKey = req.query.key as string;
+    const addressArray = req.body;
 
-  const locations = await Promise.all(
-    addressArray.map((address: string) =>
-      geoService.getLocation(address, apiKey)
-    )
-  );
+    const locations = await Promise.all(
+      addressArray.map((address: string) =>
+        geoService.getLocation(address, apiKey)
+      )
+    );
 
-  const distances = distanceService.getDistances(locations);
+    const distances = distanceService.getDistances(locations);
 
-  return res.status(200).send(distances);
+    return res.status(200).send(distances);
+  } catch (err) {
+    return _next(err);
+  }
 }
