@@ -3,6 +3,6 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "target": "ES6",
+    "target": "ES5",
   }
 }
