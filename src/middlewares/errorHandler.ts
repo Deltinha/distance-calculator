@@ -1,4 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
+import httpStatus from 'http-status';
+
+import GeocodingError from '../errors/GeocodingError';
 
 export default async function errorHandler(
   err: Error,
@@ -6,7 +9,13 @@ export default async function errorHandler(
   res: Response,
   _next: NextFunction
 ) {
-  // eslint-disable-next-line no-console
-  console.log(err);
-  return res.sendStatus(500);
+  if (err instanceof GeocodingError) {
+    return res.status(httpStatus.BAD_REQUEST).send({
+      message: err.message,
+    });
+  }
+
+  return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
+    message: 'Internal Server Error!',
+  });
 }

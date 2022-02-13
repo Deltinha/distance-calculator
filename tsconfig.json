@@ -2,9 +2,7 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "esModuleInterop": true,
-    "target": "ES5",
-  },
-  "exclude": [
-    "node_modules"
-  ]
+    "moduleResolution": "node",
+    "target": "ES6",
+  }
 }
