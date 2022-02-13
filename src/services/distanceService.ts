@@ -1,4 +1,7 @@
-import { Location } from '../interfaces/location';
+export interface Location {
+  address: string;
+  location: { lat: number; lng: number };
+}
 
 interface Distance {
   addresses: string[];

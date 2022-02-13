@@ -1,8 +1,19 @@
 import geocoding from '../adapters/geocodingApi';
 import GeocodingError from '../errors/GeocodingError';
-import { GeocodingData, GeocodingResult } from '../interfaces/geocoding';
 
 export async function getLocation(address: string, apiKey: string) {
+  interface GeocodingResult {
+    geometry: {
+      location: { lat: number; lng: number };
+    };
+  }
+
+  interface GeocodingData {
+    results: GeocodingResult[];
+    status: string;
+    error_message?: string;
+  }
+
   let result: GeocodingResult = {
     geometry: {
       location: {
@@ -12,24 +23,24 @@ export async function getLocation(address: string, apiKey: string) {
     },
   };
 
-  function resHandler(data: GeocodingData) {
-    if (data.status === 'OK') {
-      [result] = data.results;
-
-      return {
-        address,
-        location: result.geometry.location,
-      };
-    }
+  function errHandler(data: GeocodingData) {
     if (data.status === 'ZERO_RESULTS') {
-      throw new GeocodingError(
-        `Não foi possível encontrar o endereço ${address}`
-      );
+      throw new GeocodingError(`Could not find the address ${address}`);
     }
+
     throw new GeocodingError(data.error_message);
   }
 
-  await geocoding.getCoordinates(address, apiKey).then((res) => {
-    resHandler(res.data);
+  await geocoding.getCoordinates(address, apiKey).then(async (res) => {
+    if (res.data.status === 'OK') {
+      [result] = res.data.results;
+    } else {
+      errHandler(res.data);
+    }
   });
+
+  return {
+    address,
+    location: result.geometry.location,
+  };
 }
