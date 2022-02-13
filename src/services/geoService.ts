@@ -3,7 +3,6 @@ import { GeocodingData, GeocodingResult } from '../interfaces/geocoding';
 
 export async function getLocation(address: string, apiKey: string) {
   let result: GeocodingResult = {
-    formatted_address: '',
     geometry: {
       location: {
         lat: 0,
@@ -31,7 +30,7 @@ export async function getLocation(address: string, apiKey: string) {
     });
 
   const location = {
-    address: result.formatted_address,
+    address,
     location: result.geometry.location,
   };
 

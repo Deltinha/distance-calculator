@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import * as geoService from '../services/geoService';
+import * as distanceService from '../services/distanceService';
 
-export async function calculateDistances(
+export async function getDistances(
   req: Request,
   res: Response,
   _next: NextFunction
@@ -15,5 +16,7 @@ export async function calculateDistances(
     )
   );
 
-  return res.status(200).send(locations);
+  const distances = distanceService.getDistances(locations);
+
+  return res.status(200).send(distances);
 }

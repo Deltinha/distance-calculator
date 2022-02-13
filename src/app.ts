@@ -13,7 +13,7 @@ app.get('/health', (req: Request, res: Response) => {
   res.send('OK!');
 });
 
-app.get('/distance', distanceController.calculateDistances);
+app.get('/distance', distanceController.getDistances);
 
 app.use(errorHandler);
 
