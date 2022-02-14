@@ -32,10 +32,12 @@ export async function getLocation(address: string, apiKey: string) {
   }
 
   await geocoding.getCoordinates(address, apiKey).then(async (res) => {
-    if (res.data.status === 'OK') {
-      [result] = res.data.results;
+    const data = res.data as GeocodingData;
+
+    if (data.status === 'OK') {
+      [result] = data.results;
     } else {
-      errHandler(res.data);
+      errHandler(res.data as GeocodingData);
     }
   });
 
