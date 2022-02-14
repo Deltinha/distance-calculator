@@ -11,6 +11,7 @@ describe('get distance', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
+
   it('tests if the response has status 200 when payload and apiKey are valid', async () => {
     jest
       .spyOn(geoService, 'getLocation')
@@ -19,6 +20,7 @@ describe('get distance', () => {
     const response = await agent.get('/distance').send(createAddress(3)).query({
       key: createKey(),
     });
+
     expect(response.status).toBe(200);
   });
   it('tests if the body of the response has a valid format', async () => {
@@ -29,6 +31,7 @@ describe('get distance', () => {
     const response = await agent.get('/distance').send(createAddress(3)).query({
       key: createKey(),
     });
+
     expect(response.body).toEqual(
       expect.objectContaining({
         farestDistance: expect.objectContaining({

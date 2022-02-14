@@ -4,5 +4,8 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "ES5",
-  }
+  },
+  "include": [
+    "src"
+  ],
 }
