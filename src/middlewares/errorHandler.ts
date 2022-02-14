@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 
 import GeocodingError from '../errors/GeocodingError';
+import InvalidPayloadError from '../errors/InvalidPayloadError';
 
 export default async function errorHandler(
   err: Error,
@@ -10,6 +11,12 @@ export default async function errorHandler(
   _next: NextFunction
 ) {
   if (err instanceof GeocodingError) {
+    return res.status(httpStatus.BAD_REQUEST).send({
+      message: err.message,
+    });
+  }
+
+  if (err instanceof InvalidPayloadError) {
     return res.status(httpStatus.BAD_REQUEST).send({
       message: err.message,
     });

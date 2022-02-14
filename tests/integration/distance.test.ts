@@ -8,6 +8,9 @@ import { createKey } from '../factories/keyFactory';
 const agent = supertest(app);
 
 describe('get distance', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   it('tests if the response has status 200 when payload and apiKey are valid', async () => {
     jest
       .spyOn(geoService, 'getLocation')
@@ -44,5 +47,19 @@ describe('get distance', () => {
         ]),
       })
     );
+  });
+  it('tests if the response has status 400 when payload has no address', async () => {
+    const response = await agent.get('/distance').send([]).query({
+      key: createKey(),
+    });
+
+    expect(response.status).toBe(400);
+  });
+  it('tests if the response has status 400 when payload has less than 2 addresses', async () => {
+    const response = await agent.get('/distance').send([]).query({
+      key: createKey(),
+    });
+
+    expect(response.status).toBe(400);
   });
 });

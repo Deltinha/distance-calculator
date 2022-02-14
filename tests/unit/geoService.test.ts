@@ -2,10 +2,7 @@ import externalApi from '../../src/adapters/externalApi';
 import GeocodingError from '../../src/errors/GeocodingError';
 import * as geoService from '../../src/services/geoService';
 import { createAddress } from '../factories/addressFactory';
-import {
-  createGeocodingResponse,
-  createGeocodingResult,
-} from '../factories/geocodingResponseFactory';
+import { createGeocodingResponse } from '../factories/geocodingResponseFactory';
 import { createKey } from '../factories/keyFactory';
 
 describe('get location tests', () => {
