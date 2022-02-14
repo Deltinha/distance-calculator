@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as geoService from '../services/geoService';
 import * as distanceService from '../services/distanceService';
+import InvalidPayloadError from '../errors/InvalidPayloadError';
 
 export async function getDistances(
   req: Request,
@@ -10,6 +11,10 @@ export async function getDistances(
   try {
     const apiKey = req.query.key as string;
     const addressArray = req.body;
+
+    if (!(addressArray instanceof Array) || addressArray.length < 2) {
+      throw new InvalidPayloadError();
+    }
 
     const locations = await Promise.all(
       addressArray.map((address: string) =>
