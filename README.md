@@ -2,9 +2,6 @@
 
 Uma API que calcula a distância entre duas ou mais localizações.
 
-Link para o deploy:
-[https://distance-calculator-calindra.herokuapp.com/](https://distance-calculator-calindra.herokuapp.com/)
-
 ### Ferramentas utilizadas
 
 - NodeJS
